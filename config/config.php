@@ -4,5 +4,5 @@
 return [
 	'base_address' => 'contact@maingron.com',
 	'fallback_address' => 'contact+fallback@maingron.com',
-	'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator()
+	'tag_generator' => new \MailAddressTagger\RandomStringTagGenerator(10, '/^[a-zA-Z0-9].*+$/')
 ];
