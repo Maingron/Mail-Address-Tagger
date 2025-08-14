@@ -1,8 +1,18 @@
 {
-	"name": "maingron/php-mail-address-tagger",
-	"description": "Display tagged email addresses on your website. Can help identifying and defending spam.",
+	"name": "maingron/mail-address-tagger",
 	"type": "library",
+	"description": "Display tagged email addresses on your website. Can help identifying and defending spam.",
+	"keywords": ["email", "mail", "mail tagging", "spam"],
+	"homepage": "https://github.com/Maingron/Mail-Address-Tagger",
 	"license": "MIT",
+	"authors": [
+		{
+			"name": "Maingron",
+			"email": "r@maingron.com",
+			"homepage": "https://maingron.com",
+			"role": "Developer"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"MailAddressTagger\\": "src/"
