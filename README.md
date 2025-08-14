@@ -3,7 +3,15 @@
 You can add this to your PHP project to display a different Email address to each user. Maybe your Email Address is contact@maingron.com, you can then generate contact+random4837423@maingron.com, for example. You can change stuff in the config.
 
 ## Installation
-Yada Yada
+
+
+### Using Composer
+
+Install via Composer:
+
+```bash
+composer require maingron/mail-address-tagger
+```
 
 ## Links
 - [GitHub Repo](https://github.com/Maingron/PHP-Mail-Address-Tagger/)
