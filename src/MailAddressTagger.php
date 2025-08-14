@@ -9,7 +9,7 @@ namespace MailAddressTagger;
  * It can be used to create unique email addresses for tracking purposes
  */
 class MailAddressTagger {
-	private string $inputAddress;
+	private string|array $inputAddress;
 	private string $outputAddress;
 	private array $config;
 	private TagGeneratorInterface $tagGenerator;
@@ -18,7 +18,7 @@ class MailAddressTagger {
 	 * Constructor for the MailAddressTagger class
 	 *
 	 * @param array $config Configuration array for the MailAddressTagger
-	 * @param string $config['base_address'] The default email address to use if no specific address is requested
+	 * @param string|array $config['base_address'] The default email address to use if no specific address is requested
 	 * @param string $config['fallback_address'] Fallback email address to use if something goes wrong - can be pre-tagged
 	 * @param TagGeneratorInterface $config['tag_generator'] Tag generator instance
 	 */
@@ -31,7 +31,12 @@ class MailAddressTagger {
 
 		$this->config = array_merge($this->config, $config); // Merge user config onto default config
 
-		$this->inputAddress = $this->config['base_address']; // base address aka default address if no specific address gets requested in content
+		if(gettype($this->config['base_address']) == 'array' && $this->config['base_address_static'] ?? false) {
+			$this->inputAddress = $this->config['base_address'][array_rand($this->config['base_address'])];
+		} else {
+			$this->inputAddress = $this->config['base_address'];
+		}
+
 		$this->outputAddress = $this->config['fallback_address']; // We'll use this address if something goes wrong
 		$this->tagGenerator = $this->config['tag_generator'];
 	}
@@ -40,15 +45,18 @@ class MailAddressTagger {
 	 * Generates a tagged email address based on the input address or the default base address
 	 * If an input address is provided, it will be used instead of the default base address
 	 *
-	 * @param string|null $inputAddress The email address to tag. If null, the base address will be used
+	 * @param string|array|null $inputAddress The email address to tag. If null, the base address will be used
 	 * @return string The tagged email address
 	 */
 	public function getTaggedAddress($inputAddress = null): string {
-		if($inputAddress) {
-			$this->inputAddress = $inputAddress;
+		$inputAddress = $inputAddress ?? $this->inputAddress; // Use the provided input address or the default base address
+
+		if(gettype($inputAddress) == 'array') {
+			$inputAddress = $inputAddress[array_rand($inputAddress)];
 		}
+
 		$tag = $this->tagGenerator->generateTag();
-		$explodedAddress = explode('@', $this->inputAddress);
+		$explodedAddress = explode('@', $inputAddress);
 		$inputAddressName = $explodedAddress[0];
 		$inputAddressDomain = $explodedAddress[sizeof($explodedAddress) - 1];
 
