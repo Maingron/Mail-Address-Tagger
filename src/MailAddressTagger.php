@@ -25,6 +25,7 @@ class MailAddressTagger {
 	public function __construct($config) {
 		$this->config = [ // Default config
 			'base_address' => 'nobody@example.com', // Default email address to use, if no specific address is requested
+			'base_address_static' => false, // If true, the base_address will be chosen randomly once and then used for all subsequent calls, if false, the base_address will be chosen randomly for each call to getTaggedAddress (Once per Constructor vs Once per getTaggedAddress)
 			'fallback_address' => 'nobody+fallbacktag@example.com', // Fallback email address to use if something goes wrong - can be pre-tagged
 			'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator(4)
 		];
