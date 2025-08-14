@@ -1,0 +1,13 @@
+{
+    "name": "maingron/php-mail-address-tagger",
+    "description": "Display tagged email addresses on your website. Can help identifying and defending spam.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "MailAddressTagger\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
+}
