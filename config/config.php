@@ -3,5 +3,6 @@
 // You don't need to use a config file, as long as you pass some config variable to the MailAddressTagger constructor
 return [
 	'base_address' => 'contact@maingron.com',
-	'fallback_address' => 'contact+fallback@maingron.com'
+	'fallback_address' => 'contact+fallback@maingron.com',
+	'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator()
 ];
