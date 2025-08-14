@@ -3,30 +3,36 @@ use PHPUnit\Framework\TestCase;
 use MailAddressTagger\RandomStringTagGenerator;
 
 class RandomStringTagGeneratorTest extends TestCase {
-	private int $generatorLength;
-	private string $stringSet;
-	private RandomStringTagGenerator $generator;
-
-	protected function setUp(): void {
-		$this->generatorLength = 8;
-		$this->stringSet = 'maybe=suc325f0l!';
-		$this->generator = new RandomStringTagGenerator($this->generatorLength, '/^['.$this->stringSet.']+$/');
-	}
-
-	public function testGeneratesCorrectLengthAndFormat() {
-		$generator = $this->generator;
+	#[\PHPUnit\Framework\Attributes\DataProvider('generatorConfigProvider')]
+	public function testGeneratesCorrectLengthAndFormat(int $length, string $stringSet) {
+		$generator = new RandomStringTagGenerator($length, '/^['.$stringSet.']+$/');
 		for ($i = 0; $i < 100; $i++) {
 			$tag = $generator->generateTag();
-			$this->assertMatchesRegularExpression('/^['.$this->stringSet.']{'.$this->generatorLength.'}$/', $tag, 'Tag should be '.$this->generatorLength.' chars from set: '. $this->stringSet);
+			$this->assertMatchesRegularExpression('/^['.$stringSet.']{'.$length.'}$/', $tag, 'Tag should be '.$length.' chars from set: '. $stringSet);
 		}
 	}
 
-	public function testTagsAreRandomAndUnique() {
-		$generator = $this->generator;
+	#[\PHPUnit\Framework\Attributes\DataProvider('generatorConfigProvider')]
+	public function testTagsAreRandomAndUnique(int $length, string $stringSet) {
+		$generator = new RandomStringTagGenerator($length, '/^['.$stringSet.']+$/');
 		$tags = [];
-		for ($i = 0; $i < 200; $i++) {
+		ceil($testLength = $length * 2);
+		if($length < 3) {
+			$testLength = $length;
+		}
+		for ($i = 0; $i < $testLength; $i++) {
 			$tags[] = $generator->generateTag();
 		}
 		$this->assertCount(count(array_unique($tags)), $tags, 'Tags should be unique');
+	}
+
+	public static function generatorConfigProvider(): array {
+		return [
+			[8, 'maybe=suc325f0l!'],
+			[2, 'a-zA-Z0-9'],
+			[1, 'aAbBcCdDeE'],
+			[100, '0-9'],
+			[20, 'a-z=+'],
+		];
 	}
 }
