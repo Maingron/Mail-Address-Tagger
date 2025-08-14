@@ -5,5 +5,6 @@ return [
 	'base_address' => 'contact@maingron.com',
 	'base_address_static' => false, // If true, the base_address will be chosen randomly once and then used for all subsequent calls, if false, the base_address will be chosen randomly for each call to getTaggedAddress (Once per Constructor vs Once per getTaggedAddress)
 	'fallback_address' => 'contact+fallback@maingron.com',
-	'tag_generator' => new \MailAddressTagger\RandomStringTagGenerator(10, '/^[a-zA-Z0-9].*+$/')
+	'tag_generator' => new \MailAddressTagger\RandomStringTagGenerator(4, '/^[a-zA-Z0-9].*+$/'),
+	'validate_email' => false // If true, the email address will be validated before being tagged, else fallback address will be used
 ];

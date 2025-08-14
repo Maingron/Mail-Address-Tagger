@@ -27,7 +27,8 @@ class MailAddressTagger {
 			'base_address' => 'nobody@example.com', // Default email address to use, if no specific address is requested
 			'base_address_static' => false, // If true, the base_address will be chosen randomly once and then used for all subsequent calls, if false, the base_address will be chosen randomly for each call to getTaggedAddress (Once per Constructor vs Once per getTaggedAddress)
 			'fallback_address' => 'nobody+fallbacktag@example.com', // Fallback email address to use if something goes wrong - can be pre-tagged
-			'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator(4)
+			'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator(4),
+			'validate_email' => false // If true, the email address will be validated before being tagged, else fallback address will be used
 		];
 
 		$this->config = array_merge($this->config, $config); // Merge user config onto default config
@@ -58,10 +59,23 @@ class MailAddressTagger {
 
 		$tag = $this->tagGenerator->generateTag();
 		$explodedAddress = explode('@', $inputAddress);
+
+		if(($this->config['validate_email'] ?? false) && sizeof($explodedAddress) < 2) {
+			// If the input address is not a valid email address, use the fallback address
+			error_log("[MailAddressTagger] Invalid input email address '{$inputAddress}', using fallback address.", 0);
+			return $this->config['fallback_address'];
+		}
+
 		$inputAddressName = $explodedAddress[0];
 		$inputAddressDomain = $explodedAddress[sizeof($explodedAddress) - 1];
 
 		$this->outputAddress = $inputAddressName . '+' . $tag . '@' . $inputAddressDomain;
+
+		if(($this->config['validate_email'] ?? false) && !filter_var($this->outputAddress, FILTER_VALIDATE_EMAIL)) {
+			// If email validation is enabled and the output address is not valid, use the fallback address
+			error_log("[MailAddressTagger] Invalid generated email address '{$this->outputAddress}' (was '{$this->inputAddress}'), using fallback address.", 0);
+			$this->outputAddress = $this->config['fallback_address'];
+		}
 
 		return $this->outputAddress;
 	}
