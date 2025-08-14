@@ -23,7 +23,10 @@
 
 	</head>
 	<body>
-		<h1>PHP Mail Address Tagger Example</h1>
+		<h1>
+			PHP Mail Address Tagger Example
+			<img align="right" src="logo.svg" alt="Mail Address Tagger Logo">
+		</h1>
 
 		<h2>Example Addresses</h2>
 

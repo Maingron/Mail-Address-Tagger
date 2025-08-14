@@ -1,5 +1,8 @@
 # PHP Mail Address Tagger
 ## About
+
+<img align="right" src="logo.svg" alt="Mail Address Tagger Logo">
+
 You can add this to your PHP project to display a different Email address to each user. Maybe your Email Address is contact@maingron.com, you can then generate contact+random4837423@maingron.com, for example. You can change stuff in the config.
 
 <picture>
