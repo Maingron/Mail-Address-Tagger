@@ -5,6 +5,11 @@
 	"keywords": ["email", "mail", "mail tagging", "spam"],
 	"homepage": "https://github.com/Maingron/Mail-Address-Tagger",
 	"license": "MIT",
+	"readme": "README.md",
+	"support": {
+		"issues": "https://github.com/Maingron/Mail-Address-Tagger/issues",
+		"source": "https://github.com/Maingron/Mail-Address-Tagger"
+	},
 	"authors": [
 		{
 			"name": "Maingron",
