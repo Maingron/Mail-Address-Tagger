@@ -1,0 +1,9 @@
+<FilesMatch "^(\.env|\.gitignore|\.editorconfig|config\.php|composer\.(json|lock))$">
+	Order allow,deny
+	Deny from all
+</FilesMatch>
+
+<DirectoryMatch "^\.github|\.git|tests|vendor|config$">
+	Order allow,deny
+	Deny from all
+</DirectoryMatch>
