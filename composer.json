@@ -13,6 +13,16 @@
 			"role": "Developer"
 		}
 	],
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/maingron"
+		},
+		{
+			"type": "patreon",
+			"url": "https://www.patreon.com/maingron"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"MailAddressTagger\\": "src/"
