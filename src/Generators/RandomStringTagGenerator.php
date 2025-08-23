@@ -1,5 +1,7 @@
 <?php
-namespace MailAddressTagger;
+namespace MailAddressTagger\Generators;
+
+use MailAddressTagger\TagGeneratorInterface;
 
 /**
  * TagGeneratorInterface interface

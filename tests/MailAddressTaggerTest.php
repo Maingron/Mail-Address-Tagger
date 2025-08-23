@@ -11,7 +11,7 @@ class MailAddressTaggerTest extends TestCase {
 		$this->config = [
 			'base_address' => 'test@test.com',
 			'fallback_address' => 'fallback-probably_error@test.com',
-			'tag_generator' => new \MailAddressTagger\RandomHexTagGenerator($this->tagLength)
+			'tag_generator' => new \MailAddressTagger\Generators\RandomHexTagGenerator($this->tagLength)
 		];
 	}
 

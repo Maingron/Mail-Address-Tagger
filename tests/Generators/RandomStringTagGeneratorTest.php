@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use MailAddressTagger\RandomStringTagGenerator;
+use MailAddressTagger\Generators\RandomStringTagGenerator;
 
 class RandomStringTagGeneratorTest extends TestCase {
 	#[\PHPUnit\Framework\Attributes\DataProvider('generatorConfigProvider')]

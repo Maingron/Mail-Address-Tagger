@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use MailAddressTagger\RandomHexTagGenerator;
+use MailAddressTagger\Generators\RandomHexTagGenerator;
 
 class RandomHexTagGeneratorTest extends TestCase {
 	private int $generatorLength;
